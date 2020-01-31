@@ -5,11 +5,10 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws Exception{
-        File file = new File("C:\\Users\\faris\\IdeaProjects\\googleHashCode\\d_quite_big.in");
+        File file = new File("C:\\Users\\faris\\IdeaProjects\\googleHashCode\\c_medium.in");
         BufferedReader br = new BufferedReader(new FileReader(file));
         Integer sum = 0;
-        Integer summation = 0;
-        Integer pizza;
+        Integer pizza = 0;
         String[] sumAndTotal = new String[2];
         String[] values;
         List<Integer> allValues = new ArrayList<>();
@@ -38,16 +37,19 @@ public class Main {
                 oddValues.add(a);
             }
         }
-        for (int i = 0; i < allValues.size(); i++) {
-            summation += allValues.get(i);
-        }
-        System.out.println(summation);
-        System.out.println(summation - sum);
-        for (Integer a : oddValues) {
-            //System.out.print(a + " ");
-        }
-        for (Integer b : evenValues) {
-            //System.out.println(b + " ");
+        System.out.println(closestSum(pizza - 1, sum, allValues));
+    }
+    public static Integer closestSum(int a, int b, List<Integer> c) {
+        Integer tmp = 0;
+        Integer tmp1 = 0;
+        if (a == 0 || b == 0) {
+            return 0;
+        } else if (c.get(a) > b) {
+            return closestSum(a - 1, b, c);
+        } else {
+            tmp = closestSum(a - 1, b, c);
+            tmp1 = c.get(a) + closestSum(a - 1, b - c.get(a), c);
+            return Math.max(tmp, tmp1);
         }
     }
 }
